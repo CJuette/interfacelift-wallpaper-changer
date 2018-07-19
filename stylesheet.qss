@@ -1,0 +1,60 @@
+QMenu {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+QLabel#labelTitle {
+    padding: 0 0 0 5px;
+    font-weight: bold;
+    border-top:0;
+    border-right: 1px solid #eee;
+}
+
+QLabel#labelArtist {
+    padding: 0 0 0 5px;
+    border-top:0;
+    font-style: italic;
+    border-right: 1px solid #eee;
+}
+
+QLabel {
+
+}
+
+QPushButton#buttonDislike {
+    width: 20px;
+}
+
+QPushButton#buttonDislike:hover {
+    background: #e77;
+}
+
+QPushButton#buttonDislike:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #a22, stop: 1 #d66);
+}
+
+QPushButton {
+    border-top: 1px solid #eee;
+    background: #fff;
+    height: 40px;
+}
+
+QPushButton:hover {
+    background: #eee;
+}
+
+QPushButton:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadada, stop: 1 #f6f6f6);
+}
+
+QPushButton:flat {
+    border: none; /* no border for a flat push button */
+}
+
+QPushButton:default {
+    border-color: navy; /* make the default button prominent */
+}
