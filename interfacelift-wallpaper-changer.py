@@ -4,6 +4,18 @@ from PyQt5.QtWidgets import *
 
 fixedWidth = 200
 
+def openLink(event):
+    print("openLink called")
+
+def nextWallpaper():
+    print("nextWallpaper called")
+
+def update():
+    print("update called")
+
+def dislike():
+    print("dislike called")
+
 class SystemTrayWindow(QWidget):
     gridLayout = None
     buttonExit = None
@@ -55,8 +67,14 @@ class SystemTrayWindow(QWidget):
         #self.imageLabel.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
         self.imageLabel.setPixmap(self.image.scaledToWidth(fixedWidth, QtCore.Qt.SmoothTransformation))
 
+        self.buttonExit.clicked.connect(qApp.quit)
+        self.buttonDislike.clicked.connect(dislike)
+        self.buttonNext.clicked.connect(nextWallpaper)
+        self.buttonUpdate.clicked.connect(update)
 
-
+        self.labelTitle.mousePressEvent = openLink
+        self.labelArtist.mousePressEvent = openLink
+        self.imageLabel.mousePressEvent = openLink
 
 
 class SystemTrayIcon(QSystemTrayIcon):
