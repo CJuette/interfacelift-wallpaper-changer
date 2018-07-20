@@ -2,7 +2,8 @@ import sys
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtWidgets import *
 
-fixedWidth = 200
+fixedWidthTray = 200
+fixedWidthDialog = 400
 
 def openLink(event):
     print("openLink called")
@@ -12,9 +13,74 @@ def nextWallpaper():
 
 def update():
     print("update called")
+    dialog = LikeDislikeDialog()
+    result = dialog.exec_()
+    if result == QDialog.Accepted:
+        liked = True
+    else:
+        liked = False
+
+    print(liked)
 
 def dislike():
     print("dislike called")
+
+class LikeDislikeDialog(QDialog):
+    gridLayout = None
+    buttonLike = None
+    buttonDislike = None
+    labelTitle = None
+    labelArtist = None
+    imageLabel = None
+    image = None
+
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+
+        self.gridLayout = QGridLayout()
+        self.buttonDislike = QPushButton(QtGui.QIcon("thumbs_down.png"), "")
+        self.buttonDislike.setObjectName("buttonDislike")
+
+        self.buttonLike = QPushButton(QtGui.QIcon("thumbs_up.png"), "")
+        self.buttonLike.setObjectName("buttonLike")
+        self.buttonLike.setDefault(True)
+
+        self.imageLabel = QLabel()
+        self.labelTitle = QLabel("Foto")
+        self.labelTitle.setObjectName("labelTitle")
+        self.labelArtist = QLabel("Mensch")
+        self.labelArtist.setObjectName("labelArtist")
+
+        self.labelTitle.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.labelArtist.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.imageLabel.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+
+        self.gridLayout.addWidget(self.imageLabel, 0, 0, 1, 2)
+        self.gridLayout.addWidget(self.labelTitle, 1, 0, 1, 2)
+        self.gridLayout.addWidget(self.labelArtist, 2, 0, 1, 2)
+        self.gridLayout.addWidget(self.buttonDislike, 3, 0, 1, 1)
+        self.gridLayout.addWidget(self.buttonLike, 3, 1, 1, 1)
+
+        self.gridLayout.setContentsMargins(0,0,0,0)
+        self.gridLayout.setSpacing(0)
+        self.gridLayout.setSizeConstraint(QLayout.SetFixedSize)
+
+        self.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
+
+        self.setLayout(self.gridLayout)
+
+        self.image = QtGui.QPixmap("preview_test.jpg")
+        #self.imageLabel.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
+        self.imageLabel.setPixmap(self.image.scaledToWidth(fixedWidthDialog, QtCore.Qt.SmoothTransformation))
+
+        self.labelTitle.mousePressEvent = openLink
+        self.labelArtist.mousePressEvent = openLink
+        self.imageLabel.mousePressEvent = openLink
+
+        self.buttonLike.clicked.connect(self.accept)
+        self.buttonDislike.clicked.connect(self.reject)
+
+
 
 class SystemTrayWindow(QWidget):
     gridLayout = None
@@ -45,8 +111,6 @@ class SystemTrayWindow(QWidget):
         self.labelTitle.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.labelArtist.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.imageLabel.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.labelTitle.setOpenExternalLinks(True)
-        self.labelArtist.setOpenExternalLinks(True)
 
         self.gridLayout.addWidget(self.imageLabel, 0, 0, 1, 3)
         self.gridLayout.addWidget(self.labelTitle, 1, 0, 1, 2)
@@ -60,12 +124,11 @@ class SystemTrayWindow(QWidget):
         self.gridLayout.setSpacing(0)
 
         self.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
-
         self.setLayout(self.gridLayout)
 
         self.image = QtGui.QPixmap("preview_test.jpg")
         #self.imageLabel.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
-        self.imageLabel.setPixmap(self.image.scaledToWidth(fixedWidth, QtCore.Qt.SmoothTransformation))
+        self.imageLabel.setPixmap(self.image.scaledToWidth(fixedWidthTray, QtCore.Qt.SmoothTransformation))
 
         self.buttonExit.clicked.connect(qApp.quit)
         self.buttonDislike.clicked.connect(dislike)
@@ -88,7 +151,7 @@ class SystemTrayIcon(QSystemTrayIcon):
         self.window = SystemTrayWindow(parent)
         self.wa = QWidgetAction(parent)
         self.wa.setDefaultWidget(self.window)
-        menu.setFixedWidth(fixedWidth)
+        menu.setFixedWidth(fixedWidthTray)
         menu.addAction(self.wa)
 #        exitAction = menu.addAction("Exit")
 #        exitAction.triggered.connect(qApp.quit)
@@ -101,11 +164,15 @@ def main():
         stylesheet = f.read()
 
     app.setStyleSheet(stylesheet)
+    app.setQuitOnLastWindowClosed(False)
 
     w = QWidget()
     trayIcon = SystemTrayIcon(QtGui.QIcon("1.ico"), w)
 
     trayIcon.show()
+
+
+
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
