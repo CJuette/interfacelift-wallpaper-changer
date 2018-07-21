@@ -22,7 +22,7 @@ class InformationManager():
                         'thumbnailFolder': self.thumbnailFolder,
                         'tempFolder': self.tempFolder,
                         'dataFile': self.dataFile}
-            yaml.dump(contents, f)
+            yaml.dump(contents, stream=f, default_flow_style=False)
 
     def load_settings(self):
         try:
