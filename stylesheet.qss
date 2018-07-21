@@ -30,6 +30,7 @@ QLabel {
 QPushButton#buttonDislike {
     width: 20px;
     border-top: 0;
+    font-size: 18px;
 }
 
 QPushButton#buttonDislike:hover {
@@ -44,6 +45,7 @@ QPushButton#buttonDislike:pressed {
 QPushButton#buttonLike {
     width: 20px;
     border-top: 0;
+    font-size: 18px;
 }
 
 QPushButton#buttonLike:hover {

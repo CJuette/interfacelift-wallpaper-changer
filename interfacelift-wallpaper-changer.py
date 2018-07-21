@@ -28,6 +28,8 @@ def update():
 def dislike():
     print("dislike called")
 
+
+
 class LikeDislikeDialog(QDialog):
     gridLayout = None
     buttonLike = None
@@ -40,11 +42,13 @@ class LikeDislikeDialog(QDialog):
     def __init__(self, parent=None):
         QDialog.__init__(self, parent)
 
+        pixelRatio = self.devicePixelRatioF()
+
         self.gridLayout = QGridLayout()
-        self.buttonDislike = QPushButton(QtGui.QIcon("thumbs_down.png"), "")
+        self.buttonDislike = QPushButton("\U0001F44E")
         self.buttonDislike.setObjectName("buttonDislike")
 
-        self.buttonLike = QPushButton(QtGui.QIcon("thumbs_up.png"), "")
+        self.buttonLike = QPushButton("\U0001F44D")
         self.buttonLike.setObjectName("buttonLike")
         self.buttonLike.setDefault(True)
 
@@ -73,8 +77,8 @@ class LikeDislikeDialog(QDialog):
         self.setLayout(self.gridLayout)
 
         self.image = QtGui.QPixmap("preview_test.jpg")
-        #self.imageLabel.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
-        self.imageLabel.setPixmap(self.image.scaledToWidth(fixedWidthDialog, QtCore.Qt.SmoothTransformation))
+        self.image.setDevicePixelRatio(pixelRatio)
+        self.imageLabel.setPixmap(self.image.scaledToWidth(fixedWidthDialog * pixelRatio, QtCore.Qt.SmoothTransformation))
 
         self.labelTitle.mousePressEvent = openLink
         self.labelArtist.mousePressEvent = openLink
@@ -103,7 +107,7 @@ class SystemTrayWindow(QWidget):
         self.buttonExit = QPushButton("Exit")
         self.buttonUpdate = QPushButton("Check for new wallpapers")
         self.buttonNext = QPushButton("Next random wallpaper")
-        self.buttonDislike = QPushButton(QtGui.QIcon("thumbs_down.png"), "")
+        self.buttonDislike = QPushButton("\U0001F44E")
         self.buttonDislike.setObjectName("buttonDislike")
         self.imageLabel = QLabel()
         self.labelTitle = QLabel("Foto")
@@ -131,7 +135,9 @@ class SystemTrayWindow(QWidget):
 
         self.image = QtGui.QPixmap("preview_test.jpg")
         #self.imageLabel.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
-        self.imageLabel.setPixmap(self.image.scaledToWidth(fixedWidthTray, QtCore.Qt.SmoothTransformation))
+        pixelRatio = self.devicePixelRatioF()
+        self.image.setDevicePixelRatio(pixelRatio)
+        self.imageLabel.setPixmap(self.image.scaledToWidth(fixedWidthTray*pixelRatio, QtCore.Qt.SmoothTransformation))
 
         self.buttonExit.clicked.connect(qApp.quit)
         self.buttonDislike.clicked.connect(dislike)
@@ -161,6 +167,7 @@ class SystemTrayIcon(QSystemTrayIcon):
         self.setContextMenu(menu)
 
 def main():
+    QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
     app = QApplication(sys.argv)
 
     with open("stylesheet.qss", 'r') as f:
@@ -177,8 +184,6 @@ def main():
     trayIcon = SystemTrayIcon(QtGui.QIcon("1.ico"), w)
 
     trayIcon.show()
-
-
 
     sys.exit(app.exec_())
 
