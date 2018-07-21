@@ -2,6 +2,9 @@ import sys
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtWidgets import *
 
+import ifl_downloader as dl
+from ifl_infomanager import InformationManager
+
 fixedWidthTray = 200
 fixedWidthDialog = 400
 
@@ -165,6 +168,10 @@ def main():
 
     app.setStyleSheet(stylesheet)
     app.setQuitOnLastWindowClosed(False)
+
+    # Initialize information manager
+    inf_man = InformationManager()
+    down_man = dl.IFLDownloader(inf_man)
 
     w = QWidget()
     trayIcon = SystemTrayIcon(QtGui.QIcon("1.ico"), w)
