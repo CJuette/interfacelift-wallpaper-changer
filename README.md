@@ -5,14 +5,19 @@ Written in Python.
 
 More soon...
 
+Parts of the script are based on [``interfacelift-downloader`` by benjaminheng](https://github.com/benjaminheng/interfacelift-downloader).
+
 ## Dependencies
 
 * PyQT5
   ```
   pip install pyqt5
   ```
-  
 * PyYAML
   ```
   pip install pyyaml
+  ```
+* Screeninfo
+  ```
+  pip install screeninfo
   ```
