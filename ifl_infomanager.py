@@ -16,6 +16,39 @@ class InformationManager():
                                 # 2: The name of the photographer
                                 # 3: The filename on disk
 
+    def check_download_id(self,id):
+        """ Check if the image with the given id needs to be downloaded.
+        It should not be downloaded, if it is on the blacklist or in the info list.
+        """
+        if id in self.blacklist:
+            return False
+
+        for el in self.wallpaper_info:
+            if el[0] == id:
+                return False
+
+        return True
+
+    def add_to_blacklist(self, id):
+        self.blacklist.append(id)
+
+    def add_to_blacklist_flush(self, id):
+        self.add_to_blacklist(id)
+        self.write_wallpaper_info()
+
+    def add_wallpaper_entry(self, id, title, photographer, filename):
+        self.wallpaper_info.append((id, title, photographer, filename))
+
+    def add_wallpaper_entry_flush(self, id, title, photographer, filename):
+        self.add_wallpaper_entry(id, title, photographer, filename)
+        self.write_wallpaper_info()
+
+    def delete_wallpaper_entry(self, id):
+        for i, el in enumerate(self.wallpaper_info):
+            if el[0] == id:
+                self.wallpaper_info.pop(i)
+                break
+
     def write_settings(self):
         with open(self.settingsFile, 'w') as f:
             contents = {'imageFolder': self.imageFolder,

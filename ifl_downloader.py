@@ -4,6 +4,7 @@ import os
 import sys
 import re   # Regular expressions
 from ifl_infomanager import InformationManager
+from ifl_guimodules import *
 
 # Merge dictionaries. Used for merging resolutions.
 # Necessary workaround for Python 2.x   :(
@@ -110,10 +111,18 @@ RES_PATHS = merge_dicts(
     RES_IPAD,
 )
 
+URL_PATH = HOST+"/wallpaper/details/"
+
 class IFLDownloader:
 
     IMG_PATH_PATTERN = re.compile(r'<a href=\"(?P<path>.+)\"><img.+?src=\"/img_NEW/button_download')
     IMG_FILE_PATTERN = re.compile(r'[^/]*$')
+    IMG_ID_PATTERN = re.compile(r'0+(?P<id>[1-9][0-9]+).+')
+
+    IMG_TITLE_AUTHOR_PATTERN1 = r'id=\"list_'
+    IMG_TITLE_AUTHOR_PATTERN2 = r'\">[\s\S]+?class=\"details\"[\s\S]+?href=\"/wallpaper/details/.+?\">(?P<title>.+)</a>[\s\S]+?href=\"/user/.+?\">(?P<photographer>.+)</a>'
+    IMG_PREVIEW_PATTERN1 = r'id=\"list_'
+    IMG_PREVIEW_PATTERN2 = r'\">[\s\S]+?class=\"preview\"[\s\S]+?src=\"(?P<url>[^\"]+)\".+?'
 
     RES_PATH = RES_PATHS["1920x1080"]
 
@@ -189,6 +198,9 @@ class IFLDownloader:
         if not os.path.exists(self.im.thumbnailFolder):
             os.makedirs(self.im.thumbnailFolder)
 
+        ask_list = []        # List of the wallpapers to ask the user about downloading
+        download_list = []   # List of the wallpapers the user selected to download
+
         # Add image URLs to queue
         page = 1
         pageContent = self.open_page(page)
@@ -196,8 +208,50 @@ class IFLDownloader:
         for link in links:
             url = self.get_url_from_path(link.group('path'))
             filename = self.IMG_FILE_PATTERN.search(url).group()
-            saveFile = os.path.join(self.im.imageFolder, filename)
-            self.download_file(url, self.im.imageFolder)
+            id = self.IMG_ID_PATTERN.search(filename).group('id')
+
+            if self.im.check_download_id(id):
+                # Get author, title, link and thumbnail image
+                res = re.search(self.IMG_TITLE_AUTHOR_PATTERN1 + re.escape(id) + self.IMG_TITLE_AUTHOR_PATTERN2, pageContent)
+                photographer = res.group("photographer")
+                title = res.group("title")
+
+                res = re.search(self.IMG_PREVIEW_PATTERN1 + re.escape(id) + self.IMG_PREVIEW_PATTERN2, pageContent)
+                previewUrl = res.group('url')
+                previewFile = self.IMG_FILE_PATTERN.search(previewUrl).group()
+
+                # Download preview image
+                previewFilePath = os.path.join(self.im.thumbnailFolder, previewFile)
+                self.download_file(previewUrl, self.im.thumbnailFolder)
+
+                ask_list.append((id, title, photographer, previewFilePath, filename, url))
+
+        for el in ask_list:
+            dialog = LikeDislikeDialog(photographer=el[2], title=el[1], previewImage=el[3], id=el[0])
+            result = dialog.exec_()
+            if result == QDialog.Accepted:
+                download_list.append(el)
+            else:
+                self.im.add_to_blacklist(el[0])
+
+        dialog = ProgressDialog()
+        dialog.setRange(0, len(download_list))
+        dialog.setValue(0)
+        dialog.setCancelButton(None)
+        dialog.setLabelText("0/" + str(len(download_list)))
+        dialog.setWindowModality(QtCore.Qt.WindowModal)
+        dialog.show()
+
+        for i,el in enumerate(download_list):
+            qApp.processEvents()
+            print("Downloading: "+str(i)+"/"+str(len(download_list)))
+            saveFile = os.path.join(self.im.imageFolder, el[4])
+            self.download_file(el[5], self.im.imageFolder)
+
+            dialog.setValue(i+1)
+            dialog.setLabelText(str(i+1)+"/" + str(len(download_list)))
+
+        dialog.close()
 
 
 #            else:
@@ -208,5 +262,5 @@ class IFLDownloader:
 
         :type inf_man: InformationManager
         """
-        self.inf_man = inf_man
+        self.im = inf_man
         pass

@@ -57,6 +57,10 @@ QPushButton#buttonLike:pressed {
                                       stop: 0 #2a2, stop: 1 #6d6);
 }
 
+QPushButton#buttonLike:focus {
+    box-shadow: 0 0 5px #7e7;
+}
+
 QPushButton {
     border-top: 1px solid #eee;
     background: #fff;
