@@ -83,8 +83,12 @@ class InformationManager():
             return self.currentWallpaper
 
     def dislike_current(self):
-        os.remove(os.path.join(self.imageFolder, self.currentWallpaper[3]))
-        os.remove(os.path.join(self.thumbnailFolder, self.currentWallpaper[5]))
+        try:
+            os.remove(os.path.join(self.imageFolder, self.currentWallpaper[3]))
+            os.remove(os.path.join(self.thumbnailFolder, self.currentWallpaper[5]))
+        except FileNotFoundError:
+            print("Wallpapers / Thumb could not be deleted or was not found.")
+            
         self.delete_wallpaper_entry(self.currentWallpaper[0])
         self.add_to_blacklist(id)
         self.write_wallpaper_info()
