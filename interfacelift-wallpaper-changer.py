@@ -26,8 +26,12 @@ class SystemTrayIcon(QSystemTrayIcon):
         self.setContextMenu(menu)
 
 def main():
+    print("Welcome to Interfacelift-wallpaper-changer! Starting update.")
+
     QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
     app = QApplication(sys.argv)
+    app.setApplicationDisplayName("Interfacelift-Wallpaper-Changer")
+    app.setApplicationName("Interfacelift-Wallpaper-Changer")
 
     with open("stylesheet.qss", 'r') as f:
         stylesheet = f.read()
@@ -43,6 +47,8 @@ def main():
         inf_man.set_latest_wallpaper()
     else:
         inf_man.set_fresh_random_wallpaper()
+
+    print("Updating finished.")
 
     w = QWidget()
     trayIcon = SystemTrayIcon(QtGui.QIcon("1.ico"), parent=w, inf_man=inf_man, downloader=down_man)
