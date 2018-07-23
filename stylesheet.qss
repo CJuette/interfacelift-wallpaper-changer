@@ -61,25 +61,25 @@ QPushButton#buttonLike:focus {
     box-shadow: 0 0 5px #7e7;
 }
 
-QPushButton {
+SystemTrayWindow > QPushButton {
     border-top: 1px solid #eee;
     background: #fff;
     height: 40px;
 }
 
-QPushButton:hover {
+SystemTrayWindow > QPushButton:hover {
     background: #eee;
 }
 
-QPushButton:pressed {
+SystemTrayWindow > QPushButton:pressed {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                       stop: 0 #dadada, stop: 1 #f6f6f6);
 }
 
-QPushButton:flat {
+SystemTrayWindow > QPushButton:flat {
     border: none; /* no border for a flat push button */
 }
 
-QPushButton:default {
+SystemTrayWindow > QPushButton:default {
     border-color: navy; /* make the default button prominent */
 }
