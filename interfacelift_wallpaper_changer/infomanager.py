@@ -19,7 +19,7 @@ class InformationManager():
                                     # latest: The latest wallpaper that was downloaded
                                     # random: Just a random wallpaper
                                     # fresh_random: The latest wallpaper, if it was downloaded within a timeframe of a number of days
-    dataFile = dataFile
+    dataFile = "wallpaper_info.dat"
     settingsFile = settingsFile
     currentWallpaper = None         # The wallpaper that is currently set (Tuple)
 
@@ -179,5 +179,6 @@ class InformationManager():
     def __init__(self):
         self.screensize = system.get_resolution()
         self.load_settings()
+        self.dataFile = os.path.join(self.thumbnailFolder, "wallpaper_info.dat")
         self.load_wallpaper_info()
         self.initialize_random_list()
