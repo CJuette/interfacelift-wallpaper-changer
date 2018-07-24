@@ -2,10 +2,9 @@ import sys
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtWidgets import *
 
-import ifl_downloader as dl
-from ifl_infomanager import InformationManager
-from ifl_guimodules import *
-import ifl_system
+from interfacelift_wallpaper_changer.infomanager import InformationManager
+from interfacelift_wallpaper_changer.guimodules import *
+from interfacelift_wallpaper_changer import system, downloader as dl
 
 
 class SystemTrayIcon(QSystemTrayIcon):
@@ -33,7 +32,7 @@ def main():
     app.setApplicationDisplayName("Interfacelift-Wallpaper-Changer")
     app.setApplicationName("Interfacelift-Wallpaper-Changer")
 
-    with open("stylesheet.qss", 'r') as f:
+    with open("res/stylesheet.qss", 'r') as f:
         stylesheet = f.read()
 
     app.setStyleSheet(stylesheet)
@@ -51,7 +50,7 @@ def main():
     print("Updating finished.")
 
     w = QWidget()
-    trayIcon = SystemTrayIcon(QtGui.QIcon("1.ico"), parent=w, inf_man=inf_man, downloader=down_man)
+    trayIcon = SystemTrayIcon(QtGui.QIcon("res/1.ico"), parent=w, inf_man=inf_man, downloader=down_man)
 
     trayIcon.show()
 

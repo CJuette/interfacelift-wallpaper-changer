@@ -3,7 +3,7 @@ import os
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtWidgets import *
 
-import ifl_system
+from interfacelift_wallpaper_changer import system, downloader as dl
 import sys
 
 fixedWidthTray = 200
@@ -15,7 +15,7 @@ class QuestionDialog(QMessageBox):
         QMessageBox.__init__(self, parent)
 
         self.setWindowTitle("InterfaceLift Wallpaper Changer")
-        self.setWindowIcon(QtGui.QIcon("1.ico"))
+        self.setWindowIcon(QtGui.QIcon("res/1.ico"))
         self.setStyleSheet("")
         self.addButton(QMessageBox.Yes)
         self.addButton(QMessageBox.No)
@@ -27,7 +27,7 @@ class InfoDialog(QMessageBox):
         QMessageBox.__init__(self, parent)
 
         self.setWindowTitle("InterfaceLift Wallpaper Changer")
-        self.setWindowIcon(QtGui.QIcon("1.ico"))
+        self.setWindowIcon(QtGui.QIcon("res/1.ico"))
         self.setStyleSheet("")
         self.addButton(QMessageBox.Ok)
         self.setDefaultButton(QMessageBox.Ok)
@@ -39,7 +39,7 @@ class ProgressDialog(QProgressDialog):
         QProgressDialog.__init__(self, parent)
 
         self.setWindowTitle("InterfaceLift Wallpaper Changer")
-        self.setWindowIcon(QtGui.QIcon("1.ico"))
+        self.setWindowIcon(QtGui.QIcon("res/1.ico"))
 
 class LikeDislikeDialog(QDialog):
     gridLayout = None
@@ -55,7 +55,7 @@ class LikeDislikeDialog(QDialog):
 
     def openLink(self, event):
         print("Call to LikeDislikeDialog.openLink")
-        ifl_system.openLink(self.URL_PATH+self.id+'/')
+        system.openLink(self.URL_PATH + self.id + '/')
 
     def __init__(self, photographer, title, previewImage, id, parent=None):
         QDialog.__init__(self, parent)
@@ -108,11 +108,10 @@ class LikeDislikeDialog(QDialog):
         self.buttonDislike.clicked.connect(self.reject)
 
         self.setWindowTitle("InterfaceLift Wallpaper Changer - New Wallpaper found!")
-        self.setWindowIcon(QtGui.QIcon("1.ico"))
+        self.setWindowIcon(QtGui.QIcon("res/1.ico"))
 
 class SystemTrayWindow(QWidget):
-    from ifl_infomanager import InformationManager
-    import ifl_downloader as dl
+    from interfacelift_wallpaper_changer.infomanager import InformationManager
 
     gridLayout = None
     buttonExit = None
@@ -134,7 +133,7 @@ class SystemTrayWindow(QWidget):
 
     def openLink(self, event):
         print("Call to SystemTrayWindow.openLink")
-        ifl_system.openLink(self.URL_PATH+self.id+'/')
+        system.openLink(self.URL_PATH + self.id + '/')
 
     def set_wallpaper_info(self, wallpaper):
         """

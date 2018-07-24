@@ -3,7 +3,7 @@ from urllib.request import urlopen, Request
 import os
 import sys
 import re   # Regular expressions
-from ifl_infomanager import InformationManager
+from interfacelift_wallpaper_changer.infomanager import InformationManager
 
 # Merge dictionaries. Used for merging resolutions.
 # Necessary workaround for Python 2.x   :(
@@ -276,4 +276,4 @@ class DownloadManager:
         if self.im.screensize in RES_PATHS:
             self.RES_PATH = RES_PATHS[self.im.screensize]
 
-from ifl_guimodules import *
+from interfacelift_wallpaper_changer.guimodules import *

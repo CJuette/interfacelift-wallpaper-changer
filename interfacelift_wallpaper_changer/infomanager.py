@@ -3,7 +3,7 @@ import os
 import yaml
 import pickle
 import datetime
-import ifl_system
+from interfacelift_wallpaper_changer import system
 import random
 
 class InformationManager():
@@ -47,7 +47,7 @@ class InformationManager():
             # Compare date to the current date
             if (wp[4] - datetime.date.today()).days <= 2:
                 self.currentWallpaper = wp
-                ifl_system.set_wallpaper(self.imageFolder + "/" + self.currentWallpaper[3], True)
+                system.set_wallpaper(self.imageFolder + "/" + self.currentWallpaper[3], True)
                 return self.currentWallpaper
             else:
                 self.set_random_wallpaper()
@@ -62,7 +62,7 @@ class InformationManager():
 
         if wp:
             self.currentWallpaper = wp
-            ifl_system.set_wallpaper(self.imageFolder + "/" + self.currentWallpaper[3], True)
+            system.set_wallpaper(self.imageFolder + "/" + self.currentWallpaper[3], True)
             return self.currentWallpaper
 
     def set_random_wallpaper(self):
@@ -79,7 +79,7 @@ class InformationManager():
                     break
 
             self.currentWallpaper = random_wp
-            ifl_system.set_wallpaper(self.imageFolder + "/" + self.currentWallpaper[3], True)
+            system.set_wallpaper(self.imageFolder + "/" + self.currentWallpaper[3], True)
             return self.currentWallpaper
 
     def dislike_current(self):
@@ -88,7 +88,7 @@ class InformationManager():
             os.remove(os.path.join(self.thumbnailFolder, self.currentWallpaper[5]))
         except FileNotFoundError:
             print("Wallpapers / Thumb could not be deleted or was not found.")
-            
+
         self.delete_wallpaper_entry(self.currentWallpaper[0])
         self.add_to_blacklist(id)
         self.write_wallpaper_info()
@@ -174,7 +174,7 @@ class InformationManager():
             print("Could not read pickle-file")
 
     def __init__(self):
-        self.screensize = ifl_system.get_resolution()
+        self.screensize = system.get_resolution()
         self.load_settings()
         self.load_wallpaper_info()
         self.initialize_random_list()
