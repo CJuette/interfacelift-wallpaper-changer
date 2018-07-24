@@ -238,7 +238,10 @@ class DownloadManager:
                     download_list.append(el)
                 else:
                     self.im.add_to_blacklist(el[0])
-                    os.remove(previewFilePath)
+                    try:
+                        os.remove(el[3])
+                    except FileNotFoundError:
+                        print("Could not remove " + previewFilePath)
 
             dialog = ProgressDialog()
             dialog.setRange(0, len(download_list))
