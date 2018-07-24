@@ -1,2 +1,3 @@
 include README.md
-include res/*
+include interfacelift_wallpaper_changer/res/*
+include interfacelift_wallpaper_changer/config.yaml

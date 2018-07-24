@@ -4,6 +4,7 @@ import yaml
 import pickle
 import datetime
 from interfacelift_wallpaper_changer import system
+from interfacelift_wallpaper_changer.resources import *
 import random
 
 class InformationManager():
@@ -16,8 +17,8 @@ class InformationManager():
                                     # latest: The latest wallpaper that was downloaded
                                     # random: Just a random wallpaper
                                     # fresh_random: The latest wallpaper, if it was downloaded within a timeframe of a number of days
-    dataFile = "./wallpaper_info.dat"
-    settingsFile = "./config.yaml"
+    dataFile = dataFile
+    settingsFile = settingsFile
     currentWallpaper = None         # The wallpaper that is currently set (Tuple)
 
     blacklist = []          # Just a list of IDs which are blacklisted (disliked). We don't want to download these again
@@ -138,7 +139,6 @@ class InformationManager():
         with open(self.settingsFile, 'w') as f:
             contents = {'imageFolder': self.imageFolder,
                         'thumbnailFolder': self.thumbnailFolder,
-                        'dataFile': self.dataFile,
                         'freshDays': self.freshDays}
             yaml.dump(contents, stream=f, default_flow_style=False)
 

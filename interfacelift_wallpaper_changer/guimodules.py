@@ -4,6 +4,7 @@ from PyQt5 import QtGui, QtCore
 from PyQt5.QtWidgets import *
 
 from interfacelift_wallpaper_changer import system, downloader as dl
+from interfacelift_wallpaper_changer.resources import *
 import sys
 
 fixedWidthTray = 200
@@ -15,7 +16,7 @@ class QuestionDialog(QMessageBox):
         QMessageBox.__init__(self, parent)
 
         self.setWindowTitle("InterfaceLift Wallpaper Changer")
-        self.setWindowIcon(QtGui.QIcon("res/1.ico"))
+        self.setWindowIcon(QtGui.QIcon(iconFile))
         self.setStyleSheet("")
         self.addButton(QMessageBox.Yes)
         self.addButton(QMessageBox.No)
@@ -27,7 +28,7 @@ class InfoDialog(QMessageBox):
         QMessageBox.__init__(self, parent)
 
         self.setWindowTitle("InterfaceLift Wallpaper Changer")
-        self.setWindowIcon(QtGui.QIcon("res/1.ico"))
+        self.setWindowIcon(QtGui.QIcon(iconFile))
         self.setStyleSheet("")
         self.addButton(QMessageBox.Ok)
         self.setDefaultButton(QMessageBox.Ok)
@@ -39,7 +40,7 @@ class ProgressDialog(QProgressDialog):
         QProgressDialog.__init__(self, parent)
 
         self.setWindowTitle("InterfaceLift Wallpaper Changer")
-        self.setWindowIcon(QtGui.QIcon("res/1.ico"))
+        self.setWindowIcon(QtGui.QIcon(iconFile))
 
 class LikeDislikeDialog(QDialog):
     gridLayout = None
@@ -108,7 +109,7 @@ class LikeDislikeDialog(QDialog):
         self.buttonDislike.clicked.connect(self.reject)
 
         self.setWindowTitle("InterfaceLift Wallpaper Changer - New Wallpaper found!")
-        self.setWindowIcon(QtGui.QIcon("res/1.ico"))
+        self.setWindowIcon(QtGui.QIcon(iconFile))
 
 class SystemTrayWindow(QWidget):
     from interfacelift_wallpaper_changer.infomanager import InformationManager
