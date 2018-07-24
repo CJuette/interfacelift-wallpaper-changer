@@ -199,7 +199,7 @@ class DownloadManager:
         download_list = []   # List of the wallpapers the user selected to download
 
         # Add image URLs to queue
-        for page in range(1,5):
+        for page in range(1,self.im.loadPages+1):
             pageContent = self.open_page(page)
             links = self.IMG_PATH_PATTERN.finditer(pageContent)
             for link in links:

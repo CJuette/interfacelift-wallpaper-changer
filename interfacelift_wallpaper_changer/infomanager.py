@@ -13,6 +13,8 @@ class InformationManager():
     thumbnailFolder = "./thumbs"
     freshDays = 2                   # Number of days after download, that a new wallpaper is still considered fresh and
                                     # will be preferred over a random wallpaper at the start.
+    loadPages = 1                   # How many pages to check on an update. This should only be larger than 1 if the
+                                    # script is used very irregularly
     startupMode = "latest"          # Which wallpaper to set at startup
                                     # latest: The latest wallpaper that was downloaded
                                     # random: Just a random wallpaper
@@ -139,7 +141,8 @@ class InformationManager():
         with open(self.settingsFile, 'w') as f:
             contents = {'imageFolder': self.imageFolder,
                         'thumbnailFolder': self.thumbnailFolder,
-                        'freshDays': self.freshDays}
+                        'freshDays': self.freshDays,
+                        'loadPages': self.loadPages}
             yaml.dump(contents, stream=f, default_flow_style=False)
 
     def load_settings(self):
@@ -148,8 +151,8 @@ class InformationManager():
             contents = yaml.load(f)
             self.imageFolder = contents.get('imageFolder', self.imageFolder)
             self.thumbnailFolder = contents.get('thumbnailFolder', self.thumbnailFolder)
-            self.dataFile = contents.get('dataFile', self.dataFile)
             self.freshDays = contents.get('freshDays', self.freshDays)
+            self.loadPages = contents.get('loadPages', self.loadPages)
             f.close()
         except IOError:
             # Settings-File doesn't exist
