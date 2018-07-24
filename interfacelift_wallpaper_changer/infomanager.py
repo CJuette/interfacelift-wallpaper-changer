@@ -176,8 +176,8 @@ class InformationManager():
             # Error in reading the pickle information
             print("Could not read pickle-file")
 
-    def __init__(self):
-        self.screensize = system.get_resolution()
+    def __init__(self, screensize):
+        self.screensize = screensize
         self.load_settings()
         self.dataFile = os.path.join(self.thumbnailFolder, "wallpaper_info.dat")
         self.load_wallpaper_info()

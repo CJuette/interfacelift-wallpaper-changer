@@ -5,16 +5,10 @@ import re
 import subprocess
 import sys
 import webbrowser
-from screeninfo import get_monitors
 
 def openLink(url):
     print("Trying to open link %s" % url)
     webbrowser.open(url, new=2, autoraise=True)
-
-def get_resolution():
-    mons = get_monitors()
-    return str(mons[0].width) + "x" + str(mons[0].height)
-
 
 # Stuff to change the wallpaper
 # --- FROM https://stackoverflow.com/questions/2035657/what-is-my-current-desktop-environment/21213358#21213358 ---

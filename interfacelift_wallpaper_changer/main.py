@@ -38,8 +38,12 @@ def main():
     app.setStyleSheet(stylesheet)
     app.setQuitOnLastWindowClosed(False)
 
+    screen_rect = app.desktop().screenGeometry()
+    screensize = str(screen_rect.width()) + 'x' + str(screen_rect.height())
+    print("Screensize: " + screensize)
+
     # Initialize information manager
-    inf_man = InformationManager()
+    inf_man = InformationManager(screensize)
     down_man = dl.DownloadManager(inf_man)
 
     if down_man.update():

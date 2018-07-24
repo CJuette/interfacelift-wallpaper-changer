@@ -13,7 +13,7 @@ setup(name='interfacelift_wallpaper_changer',
       license='MIT',
       packages=['interfacelift_wallpaper_changer'],
       install_requires=[
-          'PyQt5', 'pyyaml', 'screeninfo'
+          'PyQt5', 'pyyaml'
       ],
       include_package_data=True,
       entry_points = {
