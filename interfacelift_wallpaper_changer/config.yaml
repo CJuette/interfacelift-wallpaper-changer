@@ -1,0 +1,4 @@
+imageFolder: ./wallpapers
+thumbnailFolder: ./thumbs
+freshDays: 2
+loadPages: 1

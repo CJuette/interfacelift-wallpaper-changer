@@ -3,7 +3,6 @@ wallpapers/
 __pycache__/
 thumbs/
 *.dat
-*.yaml
 
 # Compiled python modules.
 *.pyc
