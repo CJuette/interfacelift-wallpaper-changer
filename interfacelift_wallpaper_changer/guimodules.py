@@ -3,7 +3,7 @@ import os
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtWidgets import *
 
-from interfacelift_wallpaper_changer import system, downloader as dl
+from interfacelift_wallpaper_changer import system
 from interfacelift_wallpaper_changer.resources import *
 import sys
 
@@ -110,6 +110,8 @@ class LikeDislikeDialog(QDialog):
 
         self.setWindowTitle("InterfaceLift Wallpaper Changer - New Wallpaper found!")
         self.setWindowIcon(QtGui.QIcon(iconFile))
+
+import interfacelift_wallpaper_changer.downloader as dl
 
 class SystemTrayWindow(QWidget):
     from interfacelift_wallpaper_changer.infomanager import InformationManager

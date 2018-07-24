@@ -4,6 +4,7 @@ import os
 import sys
 import re   # Regular expressions
 from interfacelift_wallpaper_changer.infomanager import InformationManager
+from interfacelift_wallpaper_changer.guimodules import *
 
 # Merge dictionaries. Used for merging resolutions.
 # Necessary workaround for Python 2.x   :(
@@ -275,5 +276,3 @@ class DownloadManager:
         self.im = inf_man
         if self.im.screensize in RES_PATHS:
             self.RES_PATH = RES_PATHS[self.im.screensize]
-
-from interfacelift_wallpaper_changer.guimodules import *

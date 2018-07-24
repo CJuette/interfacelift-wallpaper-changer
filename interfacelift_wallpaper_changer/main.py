@@ -4,8 +4,7 @@ from PyQt5.QtWidgets import *
 
 from interfacelift_wallpaper_changer.infomanager import InformationManager
 from interfacelift_wallpaper_changer.guimodules import *
-from interfacelift_wallpaper_changer import system, downloader as dl
-
+import interfacelift_wallpaper_changer.downloader as dl
 from interfacelift_wallpaper_changer.resources import *
 
 class SystemTrayIcon(QSystemTrayIcon):
