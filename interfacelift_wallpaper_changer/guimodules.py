@@ -194,8 +194,8 @@ class SystemTrayWindow(QWidget):
         self.imageLabel = QLabel()
         self.labelTitle = QLabel("Title")
         self.labelArtist = QLabel("Mensch")
-        self.labelTitle.setFixedWidth(fixedWidthTray * self.pixelRatio * 2 / 3)
-        self.labelArtist.setFixedWidth(fixedWidthTray * self.pixelRatio * 2 / 3)
+        self.labelTitle.setFixedWidth(fixedWidthTray * 2 / 3)
+        self.labelArtist.setFixedWidth(fixedWidthTray * 2 / 3)
         self.labelTitle.setObjectName("labelTitle")
         self.labelArtist.setObjectName("labelArtist")
 
