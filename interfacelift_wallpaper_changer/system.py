@@ -151,19 +151,19 @@ def set_wallpaper(file_path, first_run):
         #    import ctypes
         #    SPI_SETDESKWALLPAPER = 20
         #    ctypes.windll.user32.SystemParametersInfoA(SPI_SETDESKWALLPAPER, 0, file_loc , 0)
-        #elif desktop_env=="mac": #Not tested since I do not have a mac
-        #    #From https://stackoverflow.com/questions/431205/how-can-i-programatically-change-the-background-in-mac-os-x
-        #    try:
-        #        from appscript import app, mactypes
-        #        app('Finder').desktop_picture.set(mactypes.File(file_loc))
-        #    except ImportError:
-        #        #import subprocess
-        #        SCRIPT = """/usr/bin/osascript<<END
-        #        tell application "Finder" to
-        #        set desktop picture to POSIX file "%s"
-        #        end tell
-        #        END"""
-        #        subprocess.Popen(SCRIPT%file_loc, shell=True)
+        elif desktop_env=="mac": #Not tested since I do not have a mac
+           #From https://stackoverflow.com/questions/431205/how-can-i-programatically-change-the-background-in-mac-os-x
+           try:
+               from appscript import app, mactypes
+               app('Finder').desktop_picture.set(mactypes.File(file_path))
+           except ImportError:
+               #import subprocess
+               SCRIPT = """/usr/bin/osascript<<END
+               tell application "Finder" to
+               set desktop picture to POSIX file "%s"
+               end tell
+               END"""
+               subprocess.Popen(SCRIPT%file_path, shell=True)
         else:
             if first_run: #don't spam the user with the same message over and over again
                 sys.stderr.write("Warning: Failed to set wallpaper. Your desktop environment is not supported.")
