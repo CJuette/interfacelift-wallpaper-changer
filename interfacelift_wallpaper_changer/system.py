@@ -158,12 +158,9 @@ def set_wallpaper(file_path, first_run):
                app('Finder').desktop_picture.set(mactypes.File(file_path))
            except ImportError:
                #import subprocess
-               SCRIPT = """/usr/bin/osascript<<END
-               tell application "Finder" to
-               set desktop picture to POSIX file "%s"
-               end tell
-               END"""
-               subprocess.Popen(SCRIPT%file_path, shell=True)
+               SCRIPT = 'tell application "Finder" to set desktop picture to POSIX file ' + file_path
+               p = subprocess.Popen(['osascript', '-'], shell=True)
+               p.communicate(SCRIPT)
         else:
             if first_run: #don't spam the user with the same message over and over again
                 sys.stderr.write("Warning: Failed to set wallpaper. Your desktop environment is not supported.")
