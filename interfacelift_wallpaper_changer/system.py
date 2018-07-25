@@ -158,8 +158,8 @@ def set_wallpaper(file_path, first_run):
                app('Finder').desktop_picture.set(mactypes.File(file_path))
            except ImportError:
                #import subprocess
-               SCRIPT = 'tell application "Finder" to set desktop picture to POSIX file "' + file_path + '"END'
-               p = subprocess.Popen(['osascript', '<<END'], shell=True)
+               SCRIPT = 'tell application "Finder" to set desktop picture to POSIX file "' + file_path + '"'
+               p = subprocess.Popen(['osascript', '-'], shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
                p.communicate(SCRIPT)
         else:
             if first_run: #don't spam the user with the same message over and over again
