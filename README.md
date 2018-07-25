@@ -31,6 +31,12 @@ From the tray, the user can select to manually check for new images, to change t
 of the downloaded ones. Additionally he can check out the interfacelift-page of the currently selected wallpaper by 
 clicking on it.
 
+## Requirements
+
+You will need a working version of Python 3. (Not sure if it needs to be greater than 3.5 or something)
+
+__Mac OSX:__ Make sure you installed the ssl-certificates with Python.
+
 ## Installation
 
 In your desired working folder, using your favorite terminal, do:
@@ -43,7 +49,7 @@ Before installing the package, you should next modify the configuration file `in
 to your wishes. See section [Configuration File](#configuration-file) for more details on the available options.
 
 ```
-python setup.py install
+python setup.py install --user
 ```
 
 The setup will install all requirements for the package. You can then simply call the package using
