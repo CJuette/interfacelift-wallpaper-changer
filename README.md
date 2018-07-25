@@ -35,12 +35,12 @@ clicking on it.
 
 You will need a working version of Python 3. (Not sure if it needs to be greater than 3.5 or something)
 
-__Mac OSX:__ Make sure you installed the ssl-certificates with Python.
+> __Mac OSX:__ Make sure you installed the ssl-certificates with Python by executing the command-file after installation.
 
 ## Installation
 
 In your desired working folder, using your favorite terminal, do:
-```
+```bash
 git clone https://github.com/Chritzel/interfacelift-wallpaper-changer.git
 cd interfacelift-wallpaper-changer
 ```
@@ -49,7 +49,7 @@ Before installing the package, you should next modify the configuration file `in
 to your wishes. See section [Configuration File](#configuration-file) for more details on the available options.
 
 ```
-python setup.py install --user
+pip3 install --user .
 ```
 
 The setup will install all requirements for the package. You can then simply call the package using
@@ -87,3 +87,4 @@ run this command again to update the configuration used.
 - Multi-Screen-Support
 - Overview of disliked wallpapers, in case you decide you do want some of those back.
 - Implement an interface to the Interfacelift-Media-RSS
+- Add an option to check for new wallpapers on regular intervals.
