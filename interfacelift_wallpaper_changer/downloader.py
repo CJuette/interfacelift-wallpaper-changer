@@ -172,11 +172,12 @@ class DownloadManager:
         try:
             req = Request(url, None, headers)
             f = urlopen(req)
+            return f.read().decode(errors='ignore')
         except IOError as e:
             print('Failed to open', url)
             if hasattr(e, 'code'):
                 print('Error code:', e.code)
-        return f.read().decode(errors='ignore')
+        return ""
 
     def set_resolution(self, res):
         if res not in list(self.RES_PATHS.keys()):
