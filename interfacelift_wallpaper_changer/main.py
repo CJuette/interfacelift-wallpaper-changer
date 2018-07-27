@@ -46,6 +46,8 @@ def main():
     inf_man = InformationManager(screensize)
     down_man = dl.DownloadManager(inf_man)
 
+    inf_man.set_fresh_random_wallpaper()
+
     if down_man.update():
         inf_man.set_latest_wallpaper()
     else:
