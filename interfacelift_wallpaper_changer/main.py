@@ -12,17 +12,21 @@ class SystemTrayIcon(QSystemTrayIcon):
     window = None
     wa = None
 
-    def __init__(self, icon, parent=None, inf_man=None, downloader=None):
-        QSystemTrayIcon.__init__(self, icon, parent)
-        menu = QMenu(parent)
-        self.window = SystemTrayWindow(parent=parent, inf_man=inf_man, downloader=downloader)
-        self.wa = QWidgetAction(parent)
+    def initialize_window(self, inf_man, downloader):
+        menu = QMenu(self.parent())
+        self.window = SystemTrayWindow(parent=self.parent(), inf_man=inf_man, downloader=downloader)
+        self.wa = QWidgetAction(self.parent())
         self.wa.setDefaultWidget(self.window)
         menu.setFixedWidth(fixedWidthTray)
         menu.addAction(self.wa)
-#        exitAction = menu.addAction("Exit")
-#        exitAction.triggered.connect(qApp.quit)
+        #        exitAction = menu.addAction("Exit")
+        #        exitAction.triggered.connect(qApp.quit)
         self.setContextMenu(menu)
+        self.setToolTip("Interfacelift Wallpaper Changer")
+
+    def __init__(self, icon, parent=None):
+        QSystemTrayIcon.__init__(self, icon, parent)
+        self.setToolTip("Updating wallpaper database...")
 
 def main():
     print("Welcome to Interfacelift-wallpaper-changer! Starting update.")
@@ -42,6 +46,10 @@ def main():
     screensize = str(screen_rect.width()) + 'x' + str(screen_rect.height())
     print("Screensize: " + screensize)
 
+    w = QWidget()
+    trayIcon = SystemTrayIcon(QtGui.QIcon(iconFile), parent=w)
+    trayIcon.show()
+
     # Initialize information manager
     inf_man = InformationManager(screensize)
     down_man = dl.DownloadManager(inf_man)
@@ -55,10 +63,7 @@ def main():
 
     print("Updating finished.")
 
-    w = QWidget()
-    trayIcon = SystemTrayIcon(QtGui.QIcon(iconFile), parent=w, inf_man=inf_man, downloader=down_man)
-
-    trayIcon.show()
+    trayIcon.initialize_window(inf_man, down_man)
 
     sys.exit(app.exec_())
 
