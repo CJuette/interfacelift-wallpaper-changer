@@ -17,6 +17,7 @@ setup(name='interfacelift_wallpaper_changer',
       ],
       include_package_data=True,
       entry_points = {
-          'console_scripts': ['interfacelift-wallpaper-changer=interfacelift_wallpaper_changer.main:main'],
+          'gui_scripts' : ['interfacelift-wallpaper-changer=interfacelift_wallpaper_changer.main:main'],
+          'console_scripts': ['interfacelift-wallpaper-changer-dev=interfacelift_wallpaper_changer.main:main']
       },
       zip_safe=False)
