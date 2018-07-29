@@ -84,7 +84,7 @@ def set_wallpaper(file_path, first_run):
             conf.set_string('/desktop/gnome/background/picture_filename', file_path)
         elif desktop_env=="windows":
             import ctypes
-            ctypes.windll.user32.SystemParametersInfoW(20, 0, file_path, 0)
+            ctypes.windll.user32.SystemParametersInfoW(20, 0, file_path, 1)
         elif desktop_env=="mate":
             try: # MATE >= 1.6
                 # info from http://wiki.mate-desktop.org/docs:gsettings
