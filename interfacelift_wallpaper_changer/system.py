@@ -79,9 +79,14 @@ def set_wallpaper(file_path, first_run):
     desktop_env = get_desktop_environment()
     try:
         if desktop_env in ["gnome", "unity", "cinnamon"]:
-            import gconf
-            conf = gconf.client_get_default()
-            conf.set_string('/desktop/gnome/background/picture_filename', file_path)
+            try:
+                import gconf
+                conf = gconf.client_get_default()
+                conf.set_string('/desktop/gnome/background/picture_filename', file_path)
+            except:
+                uri = "'file://%s'" % file_path
+                args = ["gsettings", "set", "org.gnome.desktop.background", "picture-uri", uri]
+                subprocess.Popen(args)
         elif desktop_env=="windows":
             import ctypes
             ctypes.windll.user32.SystemParametersInfoW(20, 0, file_path, 1)
