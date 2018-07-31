@@ -45,9 +45,10 @@ git clone https://github.com/Chritzel/interfacelift-wallpaper-changer.git
 cd interfacelift-wallpaper-changer
 ```
 
-Before installing the package, you should next modify the configuration file `interfacelift_wallpaper_changer/config.yaml`
+__Important:__ Before installing the package, you should next modify the configuration file `interfacelift_wallpaper_changer/config.yaml`
 to your wishes. See section [Configuration File](#configuration-file) for more details on the available options.
 
+After editing the configuration file (especially the locations of the wallpapers and thumbnails), you can permanently install the script.
 ```
 pip3 install --user .
 ```
