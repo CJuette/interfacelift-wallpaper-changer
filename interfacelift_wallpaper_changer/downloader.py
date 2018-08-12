@@ -188,7 +188,7 @@ class DownloadManager:
             self.RES_PATH = RES_PATHS["1920x1080"]
 
     def update(self, silent=True):
-
+        print("Updating...")
         # Create directory if not exist
         if not os.path.exists(self.im.imageFolder):
             os.makedirs(self.im.imageFolder)
@@ -228,8 +228,10 @@ class DownloadManager:
             dialog = InfoDialog()
             dialog.setText("No new wallpapers were found.")
             dialog.exec_()
+            print("Updating finished.")
             return False
         elif not ask_list:
+            print("Updating finished.")
             return False
         else:
             for el in ask_list:
@@ -266,6 +268,7 @@ class DownloadManager:
             self.im.write_wallpaper_info()
             dialog.close()
 
+            print("Updating finished.")
             return True
 
 

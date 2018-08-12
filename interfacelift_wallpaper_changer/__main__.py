@@ -61,8 +61,6 @@ def main():
     else:
         inf_man.set_fresh_random_wallpaper()
 
-    print("Updating finished.")
-
     trayIcon.initialize_window(inf_man, down_man)
 
     sys.exit(app.exec_())

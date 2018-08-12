@@ -124,6 +124,12 @@ class InformationManager():
         self.add_to_blacklist(id)
         self.write_wallpaper_info()
 
+    def delete_from_blacklist(self, id):
+        try:
+            self.blacklist.remove(id)
+        except ValueError:
+            pass
+
     def add_wallpaper_entry(self, id, title, photographer, filename, thumbfilename):
         self.wallpaper_info.append((id, title, photographer, filename, datetime.date.today(), thumbfilename))
         self.initialize_random_list()
