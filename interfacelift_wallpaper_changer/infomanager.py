@@ -49,11 +49,12 @@ class InformationManager():
 
         if wp:
             # Compare date to the current date
-            if (wp[4] - datetime.date.today()).days <= self.freshDays:
+            if (datetime.date.today() - wp[4]).days <= self.freshDays:
                 self.currentWallpaper = wp
                 system.set_wallpaper(self.imageFolder + "/" + self.currentWallpaper[3], True)
                 return self.currentWallpaper
             else:
+                print("Latest wallpaper is older than %d days. Setting random wallpaper." % self.freshDays)
                 self.set_random_wallpaper()
 
     def set_latest_wallpaper(self):
@@ -79,7 +80,7 @@ class InformationManager():
                     random.shuffle(self.randomList)
                     self.randomIndex = 0
 
-                if random_wp[0] != self.currentWallpaper[0]:
+                if not self.currentWallpaper or random_wp[0] != self.currentWallpaper[0]:
                     break
 
             self.currentWallpaper = random_wp
