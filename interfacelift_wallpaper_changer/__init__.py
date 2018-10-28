@@ -1,1 +1,1 @@
-import interfacelift_wallpaper_changer.__main__
+import interfacelift_wallpaper_changer.main
