@@ -44,7 +44,13 @@ def main():
 
     screen_rect = app.desktop().screenGeometry()
     screensize = str(screen_rect.width()) + 'x' + str(screen_rect.height())
+    pixel_ratio = app.devicePixelRatio()
+
     print("Screensize: " + screensize)
+    print("Pixel Ratio: %f" % pixel_ratio)
+
+    screensize = str(int(screen_rect.width() * pixel_ratio)) + 'x' + str(int(screen_rect.height() * pixel_ratio))
+    print("Effective screensize: " + screensize)
 
     w = QWidget()
     trayIcon = SystemTrayIcon(QtGui.QIcon(iconFile), parent=w)
